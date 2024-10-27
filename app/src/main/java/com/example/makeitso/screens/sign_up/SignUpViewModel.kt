@@ -70,9 +70,11 @@ class SignUpViewModel @Inject constructor(
       SnackbarManager.showMessage(AppText.password_match_error)
       return
     }
-
+//Añadir llamado a la funcion linkAccount del servicio de cuenta
     launchCatching {
-      //TODO
+      accountService.linkAccount(email, password)
+      openAndPopUp(SETTINGS_SCREEN, SIGN_UP_SCREEN)
     }
+
   }
 }
