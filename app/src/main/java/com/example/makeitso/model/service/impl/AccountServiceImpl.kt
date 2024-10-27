@@ -16,6 +16,7 @@ limitations under the License.
 
 package com.example.makeitso.model.service.impl
 
+import android.util.Log
 import com.example.makeitso.model.User
 import com.example.makeitso.model.service.AccountService
 import com.example.makeitso.model.service.trace
@@ -54,7 +55,12 @@ class AccountServiceImpl @Inject constructor(private val auth: FirebaseAuth) : A
   }
 
   override suspend fun createAnonymousAccount() {
-    auth.signInAnonymously().await()
+    try {
+      auth.signInAnonymously().await()
+    } catch (e: Exception) {
+      Log.e("Auth", "Error creating anonymous account", e)
+      throw e
+    }
   }
 //Vincular la credencial de firebase a la cuenta anonima
   override suspend fun linkAccount(email: String, password: String) {
