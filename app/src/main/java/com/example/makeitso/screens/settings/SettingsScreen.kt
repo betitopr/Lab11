@@ -36,12 +36,16 @@ import com.example.makeitso.theme.MakeItSoTheme
 @ExperimentalMaterialApi
 @Composable
 fun SettingsScreen(
+
   restartApp: (String) -> Unit,
   openScreen: (String) -> Unit,
   viewModel: SettingsViewModel = hiltViewModel()
+
 ) {
+  //Recoleccion del estado
+  val uiState by viewModel.uiState.collectAsState(initial = SettingsUiState(false))
   SettingsScreenContent(
-    uiState = viewModel.uiState,
+    uiState = uiState,// Ahora pasamos el uiState recolectado
     onLoginClick = { viewModel.onLoginClick(openScreen) },
     onSignUpClick = { viewModel.onSignUpClick(openScreen) },
     onSignOutClick = { viewModel.onSignOutClick(restartApp) },

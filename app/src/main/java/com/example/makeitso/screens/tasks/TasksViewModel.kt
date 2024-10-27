@@ -36,8 +36,8 @@ class TasksViewModel @Inject constructor(
   private val configurationService: ConfigurationService
 ) : MakeItSoViewModel(logService) {
   val options = mutableStateOf<List<String>>(listOf())
-
-  val tasks = emptyFlow<List<Task>>()
+  // Flow de tareas desde Firestore
+  val tasks = storageService.tasks
 
   fun loadTaskOptions() {
     //TODO
